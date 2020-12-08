@@ -3,9 +3,37 @@ const { uuid } = require('uuidv4');
 
 const app = express();
 
+//<-----------------  MÉTODOS HTTP -----------------> 
+
+// GET  =>>      Buscar a informação no back-end 
+// POST =>>      Criar a informação no back-end
+// PUT/PATCH =>> Alterar uma informação no back-end 
+// DELETE =>>    Deletar uma informação no back-end 
+
+//<-----------------  TIPOS DE PARAMETROS -----------------> 
+
+// Query Params =>> Filtros e paginação 
+// Route Params =>> Identificar recursos ( Atualizar / Deletar )
+// Request Body =>> Conteúdo na hora, criar ou editar um recurso ( JSON )
+
+// <----------------- MIDDLEWARE ------------------>
+// Interceptador de requisições que interrompe totalmente a requisição ou altera dados da requisição.
+
+
 app.use(express.json());
 
 const projects = [];
+
+function logRequest(req, res, next){
+  const { method, url } = req;
+
+  const logLabel = `[${method.toUpperCase()}] ${url}`;
+
+  console.log(logLabel)
+
+  return next() // Próximo Middleware
+}
+app.use(logRequest)
 
 app.get('/projects', (req, res) => {
   const { title } = req.query;
