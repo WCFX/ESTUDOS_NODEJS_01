@@ -1,7 +1,11 @@
 const express = require ('express');
+const cors = require('cors');
 const { uuid, isUuid } = require('uuidv4');
 
 const app = express();
+app.use(cors());
+app.use(express.json());
+
 
 //<-----------------  MÉTODOS HTTP -----------------> 
 
@@ -20,7 +24,6 @@ const app = express();
 // Interceptador de requisições que interrompe totalmente a requisição ou altera dados da requisição.
 
 
-app.use(express.json());
 
 const projects = [];
 
